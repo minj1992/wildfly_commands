@@ -1,0 +1,65 @@
+first login to window /wildfly/bin directory
+then open the jboss-cli.bat --> terminaal will open 
+run the below command to conenct:
+[disconnected /] connect 10.10.10.10:9990
+[standalone@10.10.10.10:9990 /]
+
+To check the WildFly version using the JBoss CLI, you can use the following command:
+0-----------------------------------------------------------------------------------
+standalone@10.97.128.132:9990 /] version
+JBoss Admin Command-line Interface
+JBOSS_HOME: E:\PMC
+Release: 18.0.4.Final
+Product: WildFly Full 26.0.1.Final
+JAVA_HOME: null
+java.version: 17.0.2
+java.vm.vendor: Microsoft
+java.vm.version: 17.0.2+8-LTS
+os.name: Windows Server 2022
+os.version: 10.0
+----------------------------------------------------------------------------
+
+check Server Status:
+--------------------------
+
+bash
+Copy code
+:read-attribute(name=server-state)
+This command will show the current state of the WildFly server, such as "running" if it's active.
+
+Check WildFly Version:
+----------------------
+
+bash
+Copy code
+:read-attribute(name=product-version)
+This command will display the WildFly version.
+
+Check Deployed Applications:
+------------------------------
+
+deployment-info
+This command will provide information about deployed applications.
+
+List Running Deployments:
+----------------------------
+/deployment=*.war:read-attribute(name=runtime-name)
+This command will list the names of currently running deployments.
+
+View Server Logs:
+-----------------
+
+/core-service=platform-mbean/type=runtime:read-attribute(name=server-log-file)
+This command will display the path to the server log file. You can then view the log file using a text editor or a log viewer.
+
+Remember to replace : with the current connection context. If you're not in any specific context, you can use :connect to connect to the local server:
+
+
+After executing these commands, you should get relevant information about the WildFly server's status, version, deployed applications, and logs.
+
+Make sure to adjust these commands based on your specific environment and configurations.
+
+
+
+
+
