@@ -1,0 +1,23 @@
+#!/bin/bash
+
+rootDir=/efs/repo/attachments
+
+inputFile=./Attachmentfailed.csv
+
+logFile=./attachmentpurge-minj-$(date '+%Y%m%d%H%M%S').csv
+echo "Result,Time,ID,File" > "${logFile}"
+
+ 
+while IFS="|" read -r projid attid folder file
+do
+ file=$(echo "$file" | tr -d '\r' | sed 's/^"//; s/"$//g')
+folder=$(echo "$folder" | sed 's/^0*//'); 
+ folder=$(printf "%02d" "$folder")
+ # dt=$(date '+%d/%m/%Y %H:%M:%S')
+  {
+    if [ "" != "$file" ] ; then
+      ls  $rootDir/"$folder"/"$file"
+      #sleep 5
+    fi
+  } 
+done < <(tail -n +2 "${inputFile}") 
